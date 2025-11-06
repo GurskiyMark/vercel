@@ -1,18 +1,13 @@
-import express, { Request, Response } from 'express'
-import { productsRouter } from './products-router'
+import express, { Request, Response } from 'express';
+import { productsRouter } from './products-router';
 
-const app = express()
-const port = process.env.PORT || 5000
-
-const parserMiddleware = express.json()
-app.use(parserMiddleware)
+const app = express();
+app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello Samurai')
-})
+  res.send('Hello Samurai');
+});
 
-app.use('/products', productsRouter)
+app.use('/products', productsRouter);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+export default app; // ⚡️ ключевой момент — экспорт, без app.listen
