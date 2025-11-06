@@ -1,19 +1,18 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response } from 'express'
+import { productsRouter } from './products-router'
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const app = express()
+const port = process.env.PORT || 5000
 
-app.use(express.json());
+const parserMiddleware = express.json()
+app.use(parserMiddleware)
 
-app.get("/timer", async (req: Request, res: Response) => {
-  try {
-    return res.status(200).json({ message: "Таймер работает!" });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Ошибка сервера" });
-  }
-});
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello Samurai')
+})
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.use('/products', productsRouter)
 
-export default app;
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
